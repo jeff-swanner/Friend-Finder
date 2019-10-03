@@ -18,7 +18,7 @@ This is a friend finder application that allows the user to answer a set of 10 s
 * Heroku - Used to deploy application to web
 
 ## Deployed Heroku App
-* [Friend Finder](https://drive.google.com/file/d/1ERVkJyy2eF_i12j7vZU_-XaTpByN9GHC/view)
+* [Friend Finder](https://fathomless-forest-49500.herokuapp.com/)
 
 ## Creator
 Jeff Swanner
