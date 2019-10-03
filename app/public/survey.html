@@ -44,7 +44,7 @@
                     </div>
 
                     <h3>Question 2</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You rarely do something just out of sheer curiosity.</h5>
                     <div class="mb-3">
                         <select id="q2">
                             <option value="" selected>Select an Option</option>
@@ -70,7 +70,7 @@
                     </div>
 
                     <h3>Question 4</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You find it easy to stay relaxed and focused even when there is some pressure.</h5>
                     <div class="mb-3">
                         <select id="q4">
                             <option value="" selected>Select an Option</option>
@@ -83,7 +83,7 @@
                     </div>
 
                     <h3>Question 5</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>Generally speaking, you rely more on your experience than your imagination.</h5>
                     <div class="mb-3">
                         <select id="q5">
                             <option value="" selected>Select an Option</option>
@@ -96,7 +96,7 @@
                     </div>
 
                     <h3>Question 6</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You often feel alone, even when surrounded by others.</h5>
                     <div class="mb-3">
                         <select id="q6">
                             <option value="" selected>Select an Option</option>
@@ -109,7 +109,7 @@
                     </div>
 
                     <h3>Question 7</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You enjoy binge watching a tv show over reading a new book.</h5>
                     <div class="mb-3">
                         <select id="q7">
                             <option value="" selected>Select an Option</option>
@@ -122,7 +122,7 @@
                     </div>
 
                     <h3>Question 8</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You enjoy exploring the outdoors over staying in and watching a movie.</h5>
                     <div class="mb-3">
                         <select id="q8">
                             <option value="" selected>Select an Option</option>
@@ -135,7 +135,7 @@
                     </div>
 
                     <h3>Question 9</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You enjoy traveling and experiencing new things.</h5>
                     <div class="mb-3">
                         <select id="q9">
                             <option value="" selected>Select an Option</option>
@@ -148,7 +148,7 @@
                     </div>
 
                     <h3>Question 10</h3>
-                    <h5>Your mind is always buzzing with unexplored ideas and plans.</h5>
+                    <h5>You enjoy a good spirited debate about politics.</h5>
                     <div class="mb-3">
                         <select id="q10">
                             <option value="" selected>Select an Option</option>
@@ -164,6 +164,8 @@
                     <hr/>
                     <div class="mb-4">
                         <a href="/api/friends">API Friends List</a>
+                        |
+                        <a href="https://github.com/jeff-swanner/Friend-Finder">Github Repo</a>
                     </div>
                     
                 </form>
@@ -191,8 +193,11 @@
 </body>
 <script>
     $(document).ready(function() {
+        // On click event when submit button is clicked
         $("#submit").click(function(event){
             event.preventDefault();
+
+            // Creates new object with survery input
             var newQuiz = {
                 name: $("#nameInput").val().trim(),
                 picture: $("#imageUrlInput").val().trim(),
@@ -208,13 +213,33 @@
                 q10: $("#q10").val()
             };
 
+            // Post request that sends survey data to server
             $.post("/api/friends", newQuiz, function(data) {
+
+                // Checks if error is returned and submits alert
                 if (data.error) {
                     alert(data.message);
                 } else {
+
+                    // Adds returned closest match data to modal
+                    $(".modal-body").html("<h3>"+data.name+"</h3><img src='"+data.picture+"' width='200'>");
+
+                    // Opens modal
                     $("#friendModal").modal('toggle');
 
-                    $(".modal-body").html("<h3>"+data.name+"</h3><img src='"+data.picture+"' width='200'>");
+                    // Clears form data
+                    $("#nameInput").val("");
+                    $("#imageUrlInput").val("");
+                    $("#q1").val("");
+                    $("#q2").val("");
+                    $("#q3").val("");
+                    $("#q4").val("");
+                    $("#q5").val("");
+                    $("#q6").val("");
+                    $("#q7").val("");
+                    $("#q8").val("");
+                    $("#q9").val("");
+                    $("#q10").val("");
                 }
             });
         }); 
